@@ -1,8 +1,9 @@
 <template>
   <!-- <div class="problem"> -->
-    <form @submit.prevent="checkAnswer" v-for="prob in problem" :key="prob.operator">
-        <div class="top"><span>{{prob.top}}</span></div>
-        <div class="top"><span>{{prob.operator}}</span><span>{{prob.bottom}}</span></div>
+    <!-- <form @submit.prevent="checkAnswer" v-for="prob in problem" :key="prob.operator"> -->
+        <form @submit.prevent="checkAnswer">
+        <div class="top"><span>{{problem.top}}</span></div>
+        <div class="top"><span>{{problem.operator}}</span><span>{{problem.bottom}}</span></div>
         <div><input type="text" maxlength="5" v-model.number="userAnswer"></div>
         <!-- <button @click="checkAnswer(problem, userAnswer)">Check Calculation</button> -->
         <button>Check Calculation</button>
@@ -14,36 +15,39 @@
 
 <script>
 import {computed, ref} from 'vue'
+import getProblem from '../composables/getProblem'
+
 export default {
 
     setup() {
         const userAnswer = ref();
-        const problem = computed(()=>{
-            let prob = [];
-            prob.push({top: 23, bottom: 34, operator: '+'});
-            return prob;
-        });
+
+        const problem = getProblem();
+        // console.log("problem", problem, problem.top);
 
         const handleAddition = ()=> {
-            let answer = problem.value[0].top + problem.value[0].bottom;
+            let answer = problem.top + problem.bottom;
             if(answer === userAnswer.value){
                 console.log('correct');
+                problem.value = getProblem();
+                
             }
             else
                 console.log('incorrect');
         };
 
         const handleSubtraction = ()=> {
-            let answer = problem.value[0].top - problem.value[0].bottom;
+            let answer = problem.top - problem.bottom;
             if(answer === userAnswer.value){
                 console.log('correct');
+
             }
             else
                 console.log('incorrect');
         };
 
         const handleMultiplication = ()=> {
-            let answer = problem.value[0].top * problem.value[0].bottom;
+            let answer = problem.top * problem.bottom;
             if(answer === userAnswer.value){
                 console.log('correct');
             }
@@ -52,7 +56,7 @@ export default {
         };
 
         const handleDivision = ()=> {
-            let answer = problem.value[0].top / problem.value[0].bottom;
+            let answer = problem.top / problem.bottom;
             if(answer === userAnswer.value){
                 console.log('correct');
             }
@@ -61,8 +65,8 @@ export default {
         };
 
         const checkAnswer = () => {
-            // console.log(problem.value[0].operator);
-            switch(problem.value[0].operator) {
+            // console.log(problem.operator);
+            switch(problem.operator) {
                 case '+':
                     handleAddition();
                     break;
