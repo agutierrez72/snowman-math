@@ -1,86 +1,87 @@
 <template>
   <!-- <div class="problem"> -->
-    <form>
-        <div class="top"><span>{{problem.top}}</span></div>
-        <div class="top"><span>{{problem.operator}}</span><span>{{problem.bottom}}</span></div>
+    <form @submit.prevent="checkAnswer" v-for="prob in problem" :key="prob.operator">
+        <div class="top"><span>{{prob.top}}</span></div>
+        <div class="top"><span>{{prob.operator}}</span><span>{{prob.bottom}}</span></div>
         <div><input type="text" maxlength="5" v-model.number="userAnswer"></div>
-        <button @click="checkAnswer(problem, userAnswer)">Check Calculation</button>
+        <!-- <button @click="checkAnswer(problem, userAnswer)">Check Calculation</button> -->
+        <button>Check Calculation</button>
+        <!-- <div >Incorrect Letters: <span class="wrong">{{wrongLetters.toString()}}</span></div> -->
         <div >Incorrect Letters: <span class="wrong">B</span></div>
     </form>
 
 </template>
 
 <script>
+import {computed, ref} from 'vue'
 export default {
-    data(){
-        return {
-            problem: {
-                top: 23,
-                bottom: 34,
-                operator: '+'
-            },
-            userAnswer: null,
-            points: 0
-        }
-    },
+
     setup() {
-        const checkAnswer = (problem, userAnswer) => {
-            switch(problem.operator) {
+        const userAnswer = ref();
+        const problem = computed(()=>{
+            let prob = [];
+            prob.push({top: 23, bottom: 34, operator: '+'});
+            return prob;
+        });
+
+        const handleAddition = ()=> {
+            let answer = problem.value[0].top + problem.value[0].bottom;
+            if(answer === userAnswer.value){
+                console.log('correct');
+            }
+            else
+                console.log('incorrect');
+        };
+
+        const handleSubtraction = ()=> {
+            let answer = problem.value[0].top - problem.value[0].bottom;
+            if(answer === userAnswer.value){
+                console.log('correct');
+            }
+            else
+                console.log('incorrect');
+        };
+
+        const handleMultiplication = ()=> {
+            let answer = problem.value[0].top * problem.value[0].bottom;
+            if(answer === userAnswer.value){
+                console.log('correct');
+            }
+            else
+                console.log('incorrect');
+        };
+
+        const handleDivision = ()=> {
+            let answer = problem.value[0].top / problem.value[0].bottom;
+            if(answer === userAnswer.value){
+                console.log('correct');
+            }
+            else
+                console.log('incorrect');
+        };
+
+        const checkAnswer = () => {
+            // console.log(problem.value[0].operator);
+            switch(problem.value[0].operator) {
                 case '+':
-                    handleAddition(problem, userAnswer);
+                    handleAddition();
                     break;
                 case '-':
-                    handleSubtraction(problem, userAnswer);
+                    handleSubtraction();
                     break;
                 case '*':
-                    handleMultiplication(problem, userAnswer);
+                    handleMultiplication();
                     break;
                 case '/':
-                    handleDivision(problem, userAnswer);
+                    handleDivision();
                     break;
                 default:
-                    console.log('no operation', problem.operator);
+                    console.log();
                     break;
             }
+            userAnswer.value ='';
         };
-
-        const handleAddition = (problem, userAnswer)=>{
-            let answer = problem.top + problem.bottom;
-            if(answer === userAnswer){
-                console.log('correct');
-            }
-            else
-                console.log('incorrect');
-        };
-
-        const handleSubtraction = (problem, userAnswer)=>{
-            let answer = problem.top - problem.bottom;
-            if(answer === userAnswer){
-                console.log('correct');
-            }
-            else
-                console.log('incorrect');
-        };
-
-        const handleMultiplication = (problem, userAnswer)=>{
-            let answer = problem.top * problem.bottom;
-            if(answer === userAnswer){
-                console.log('correct');
-            }
-            else
-                console.log('incorrect');
-        };
-
-        const handleDivision = (problem, userAnswer)=>{
-            let answer = problem.top / problem.bottom;
-            if(answer === userAnswer){
-                console.log('correct');
-            }
-            else
-                console.log('incorrect');
-        };
-
-        return { checkAnswer }
+        return { problem, userAnswer, checkAnswer };
     }
 
 }
