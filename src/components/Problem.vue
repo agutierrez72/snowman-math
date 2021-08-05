@@ -1,10 +1,13 @@
 <template>
-  <div class="problem">
-    <div class="top"><span id="top">{{problem.top}}</span></div>
-    <div class="top"><span id="operator">{{problem.operator}}</span><span id="bottom">{{problem.bottom}}</span></div>
-    <div><input type="text" maxlength="5" v-model="userAnswer"></div>
-    <button @click="checkAnswer(problem, userAnswer)">Check Calculation</button>
-  </div>
+  <!-- <div class="problem"> -->
+    <form>
+        <div class="top"><span>{{problem.top}}</span></div>
+        <div class="top"><span>{{problem.operator}}</span><span>{{problem.bottom}}</span></div>
+        <div><input type="text" maxlength="5" v-model.number="userAnswer"></div>
+        <button @click="checkAnswer(problem, userAnswer)">Check Calculation</button>
+        <div >Incorrect Letters: <span class="wrong">B</span></div>
+    </form>
+
 </template>
 
 <script>
@@ -12,8 +15,8 @@ export default {
     data(){
         return {
             problem: {
-                top: '23',
-                bottom: '34',
+                top: 23,
+                bottom: 34,
                 operator: '+'
             },
             userAnswer: null,
@@ -42,8 +45,8 @@ export default {
         };
 
         const handleAddition = (problem, userAnswer)=>{
-            let answer = Number(problem.top) + Number(problem.bottom);
-            if(answer === Number(userAnswer)){
+            let answer = problem.top + problem.bottom;
+            if(answer === userAnswer){
                 console.log('correct');
             }
             else
@@ -51,8 +54,8 @@ export default {
         };
 
         const handleSubtraction = (problem, userAnswer)=>{
-            let answer = Number(problem.top) - Number(problem.bottom);
-            if(answer === Number(userAnswer)){
+            let answer = problem.top - problem.bottom;
+            if(answer === userAnswer){
                 console.log('correct');
             }
             else
@@ -60,8 +63,8 @@ export default {
         };
 
         const handleMultiplication = (problem, userAnswer)=>{
-            let answer = Number(problem.top) * Number(problem.bottom);
-            if(answer === Number(userAnswer)){
+            let answer = problem.top * problem.bottom;
+            if(answer === userAnswer){
                 console.log('correct');
             }
             else
@@ -69,8 +72,8 @@ export default {
         };
 
         const handleDivision = (problem, userAnswer)=>{
-            let answer = Number(problem.top) / Number(problem.bottom);
-            if(answer === Number(userAnswer)){
+            let answer = problem.top / problem.bottom;
+            if(answer === userAnswer){
                 console.log('correct');
             }
             else
@@ -83,17 +86,20 @@ export default {
 }
 </script>
 
-<style>
-    .problem {
-        @apply grid justify-center;
-    }
+<style scoped>
      .top {
         @apply flex justify-end;
     } 
-    .problem input {
-        @apply rounded-b border-t-4 border-black p-4 bg-gray-50 text-lg text-right focus:outline-none;
+    form {
+        @apply grid justify-between;
     }
-    .problem button {
-        @apply bg-blue-300 p-2 mt-2 rounded border-2 border-blue-300  focus:bg-blue-100 focus:border-blue-100 hover:bg-blue-100 hover:border-blue-300;
+    form input {
+        @apply rounded-b border-t-4 border-black p-4 bg-gray-300 text-lg text-right focus:outline-none;
+    }
+    form button {
+        @apply bg-blue-300 p-2 my-2 rounded border-2 border-blue-300  focus:bg-blue-100 focus:border-blue-100 hover:bg-blue-100 hover:border-blue-300;
+    }
+    .wrong{
+        @apply text-red-500 text-3xl;
     }
 </style>
