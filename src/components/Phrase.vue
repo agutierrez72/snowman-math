@@ -5,41 +5,37 @@
       </div>
     
       <input type="text" maxlength="1" v-model="userGuess">
-      <button @click="checkGuess(userGuess)">Check Guess</button>
+      <button @click="checkGuess">Check Guess</button>
   </div>
 
 </template>
 
 <script>
+import { ref, computed } from 'vue'
 export default {
-    data() {
-        return{
-            guessPhrase: '',
-            unknownPhrase: [ {letter: '', id: ''}],
-            userGuess: ''
-        }
-    },
     setup(){
-        const guessPhrase = "snowman";
-        let unknownPhrase = [];
+        const guessPhrase = ref("snowman");
+        const userGuess = ref('');
         
-        for(let i = 0; i < guessPhrase.length; i++){
-            unknownPhrase.push({letter:'_', id: i});
-        };
+        const unknownPhrase = computed(()=>{
+            let phrase = [];
+            for(let i = 0; i < guessPhrase.value.length; i++){
+                phrase.push({letter:'_', id: i});
+            };
+            return phrase;
+        })
 
-
-        const checkGuess = (userGuess) => {
-            for(let index = 0; index < guessPhrase.length; index++){
-                if(guessPhrase[index] === userGuess){
-                    unknownPhrase[index].letter = userGuess;
+        const checkGuess = () => {
+            for(let index = 0; index < guessPhrase.value.length; index++){
+                if(guessPhrase.value[index] === userGuess.value){
+                    unknownPhrase.value[index].letter = userGuess.value;
                 }
             }
-
-            userGuess = '';
+            userGuess.value = '';
            
         };
 
-        return { unknownPhrase, checkGuess, guessPhrase };
+        return { unknownPhrase, guessPhrase, checkGuess, userGuess };
     }
 
 }
