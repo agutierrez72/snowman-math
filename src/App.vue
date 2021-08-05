@@ -1,7 +1,7 @@
 <template>
   <div class="phrase-app">
     <h1>Snowman Math Game</h1>
-    <div><Phrase /></div>
+    <Phrase />
   </div>
   
 </template>
