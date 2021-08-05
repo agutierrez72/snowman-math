@@ -1,16 +1,17 @@
 <template>
   <div class="phrase-app">
     <h1>Snowman Math Game</h1>
-    <Phrase />
+    <Game />
   </div>
   
 </template>
 
 <script>
-import Phrase from './components/Phrase.vue'
+import Game from './views/Game.vue'
 
 export default {
-  components: { Phrase },
+  // components: { Phrase },
+  components: { Game },
 }
 </script>
 
