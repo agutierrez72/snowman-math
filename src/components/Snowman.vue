@@ -1,6 +1,7 @@
 <template>
     <div class="snowman">
         <img src="@/assets/snowman1.png">
+        Points:<span>0</span>
     </div>
 </template>
 
