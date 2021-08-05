@@ -1,23 +1,21 @@
 <template>
   <div class="phrase-app">
-    <h1>Snowman Math Game</h1>
-    <Game />
+    <router-view/>
   </div>
   
 </template>
 
 <script>
-import Game from './views/Game.vue'
 
 export default {
-  // components: { Phrase },
-  components: { Game },
+
 }
 </script>
 
 <style>
   .phrase-app {
-    @apply grid justify-center min-w-max m-4;
+    @apply grid justify-center min-w-max p-10;
+    @apply bg-gradient-to-t from-white to-blue-500;
   }
   .phrase-app h1 {
     @apply text-5xl pointer-events-none;
