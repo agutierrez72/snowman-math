@@ -5,7 +5,7 @@
       </div>
     
       <input type="text" maxlength="1" v-model="userGuess">
-      <button @click="guessLetter(userGuess)">Check Guess</button>
+      <button @click="checkGuess(userGuess)">Check Guess</button>
   </div>
 
 </template>
@@ -28,7 +28,7 @@ export default {
         };
 
 
-        const guessLetter = (userGuess) => {
+        const checkGuess = (userGuess) => {
             for(let index = 0; index < guessPhrase.length; index++){
                 if(guessPhrase[index] === userGuess){
                     unknownPhrase[index].letter = userGuess;
@@ -39,7 +39,7 @@ export default {
            
         };
 
-        return { unknownPhrase, guessLetter, guessPhrase };
+        return { unknownPhrase, checkGuess, guessPhrase };
     }
 
 }
