@@ -2,13 +2,13 @@
   <div class="phrase-app">
     <h1>Snowman Math Game</h1>
     <div><Phrase /></div>
-    <router-view />
   </div>
   
 </template>
 
 <script>
 import Phrase from './components/Phrase.vue'
+
 export default {
   components: { Phrase },
 }
